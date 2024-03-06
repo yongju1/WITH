@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="placeMapper">
+<resultMap id="place" type="com.with.vo.PlaceVO">
+		
+		<id property="PLACE_NO" column="place_no" />
+		<result property="place_type" column="place_type" />
+		<result property="place_name" column="place_name" />
+		<result property="place_zipcode" column="place_zipcode" />
+		<result property="user_type" column="user_type" />
+		<result property="place_adr1" column="place_adr1" />
+		<result property="place_adr2" column="place_adr2" />
+		<result property="place_img" column="place_img" />
+		<result property="place_phone" column="place_phone" />
+		<result property="place_bhours" column="place_bhours" />
+		<result property="place_dayoff" column="place_dayoff" />
+		<result property="place_menu" column="place_menu" />
+		<result property="place_detail" column="place_detail" />
+		
+	</resultMap>
+	<!-- 장소 추가 -->
+	<insert id="register" useGeneratedKeys="true" keyProperty="PLACE_NO">
+	<selectKey keyProperty="PLACE_NO" resultType="int" order="BEFORE">
+		SELECT PLACE_SEQ.NEXTVAL FROM DUAL
+	</selectKey>
+	<![CDATA[
+	INSERT INTO TB_PLACE (PLACE_NO, PLACE_TYPE, PLACE_NAME, PLACE_ZIPCODE, PLACE_ADR1, PLACE_ADR2, PLACE_IMG1, PLACE_IMG2, PLACE_IMG3, PLACE_PHONE, PLACE_BHOURS, PLACE_DAYOFF, PLACE_MENU, PLACE_DETAIL)
+	                 VALUES(    #{PLACE_NO}
+	                 		  , #{place_type}
+	                 		  , #{place_name}
+	                 		  , #{place_zipcode}
+	                 		  , #{place_adr1}
+	                 		  , #{place_adr2}
+	                 		  , #{place_img1}
+	                 		  , #{place_img2}
+	                 		  , #{place_img3}
+	                 		  , #{place_phone}
+	                 		  , #{place_bhours}
+	                 		  , #{place_dayoff}
+	                 		  , #{place_menu}
+	                 		  , #{place_detail} )
+	                 		  ]]>
+   
+</insert>
+<!-- 장소 수정 -->
+<update id="update" parameterType="com.with.vo.PlaceVO">
+<![CDATA[
+		UPDATE 
+			TB_PLACE
+			SET 
+			PLACE_NAME = #{place_name}, 
+			PLACE_DETAIL = #{place_detail},
+			PLACE_TYPE = #{place_type}, 
+			PLACE_ZIPCODE = #{place_zipcode}, 
+			PLACE_ADR1 = #{place_adr1}, 
+			PLACE_ADR2 = #{place_adr2}, 
+			PLACE_PHONE = #{place_phone}, 
+			PLACE_MENU = #{place_menu}, 
+			PLACE_BHOURS = #{place_bhours}, 
+			PLACE_DAYOFF = #{place_dayoff}, 
+			PLACE_IMG1 = #{place_img1}, 
+			PLACE_IMG2 = #{place_img2}, 
+			PLACE_IMG3 = #{place_img3}
+		WHERE 
+			PLACE_NO=#{PLACE_NO}
+	]]>
+</update>
+
+<!--장소삭제-->
+<delete id="deletePlace">
+<![CDATA[
+   DELETE FROM TB_PLACE WHERE PLACE_NO=#{place_no}
+   ]]>
+</delete>
+
+<!-- 장소 정보 가져오기 -->
+<select id="placeInfo" parameterType="int" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT  *
+		 FROM TB_PLACE
+		 WHERE PLACE_NO = #{place_no}
+	]]>
+	</select>
+	
+<!-- 메인 페이지 -->
+<select id="placeInfoMainList" parameterType="int" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT  PLACE_NO
+			  , PLACE_TYPE
+			  , PLACE_NAME
+			  , PLACE_ZIPCODE
+			  , PLACE_ADR1
+			  , PLACE_ADR2
+			  , PLACE_IMG1
+			  , PLACE_IMG2
+			  , PLACE_IMG3
+			  , PLACE_PHONE
+			  , PLACE_DETAIL
+			  , PLACE_DATE
+		 FROM TB_PLACE
+		 WHERE PLACE_TYPE = #{type}
+		 AND ROWNUM <= 3
+		 ORDER BY GBOOK_CNT DESC
+	]]>
+</select>
+
+<!-- 메인 지역별 -->
+<select id="placeInfoMainList2" parameterType="String" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT  PLACE_NO
+			  , PLACE_TYPE
+			  , PLACE_NAME
+			  , PLACE_ZIPCODE
+			  , PLACE_ADR1
+			  , PLACE_ADR2
+			  , PLACE_IMG1
+			  , PLACE_IMG2
+			  , PLACE_IMG3
+			  , PLACE_PHONE
+			  , PLACE_DETAIL
+			  , PLACE_DATE
+		 FROM TB_PLACE
+		 WHERE PLACE_ADR1 LIKE #{type}
+		 AND ROWNUM <= 3
+		 ORDER BY GBOOK_CNT DESC
+	]]>
+</select>
+
+<!-- 장소 이미지 업로드 -->
+<insert id="placeImgRegister">
+	<![CDATA[
+		INSERT INTO TB_FILE
+		(
+			FILE_NO,
+			PLACE_NO,
+			ORIGINAL_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			CREA_ID
+		)
+		VALUES
+		(
+			SEQ_TB_FILE_IDX.NEXTVAL,
+			#{PLACE_NO},
+			#{original_file_name},
+			#{stored_file_name},
+			#{file_size},
+			'Admin'
+		)
+	]]>
+</insert>
+
+<!-- 모든 장소 불러오기 -->
+<select id="placeInfoAll" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT
+		    *
+		FROM 
+		    (SELECT 
+		        ROWNUM AS RNUM, T1.*
+		    FROM
+		        (SELECT 
+		            *
+		        FROM 
+		            TB_PLACE
+		        ORDER BY PLACE_NO DESC) T1
+		    WHERE ROWNUM <= #{listSize})
+		 WHERE RNUM > #{startList}
+	]]>
+</select>
+
+<!-- 장소 개수 -->
+<select id="getPlaceListCnt" resultType="int" parameterType="String">
+	
+		SELECT count(*) as placeCnt
+		FROM TB_PLACE 
+		<if test='_parameter != null and _parameter != "" '>
+	    WHERE
+	    <if test='_parameter == "맛집"'> PLACE_TYPE = 0 OR </if>
+	    <if test='_parameter == "카페"'> PLACE_TYPE = 1 OR </if>
+	    PLACE_NAME LIKE '%'||#{keyword}||'%'
+	    OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%'
+	    OR PLACE_MENU LIKE '%'||#{keyword}||'%' OR PLACE_DETAIL LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='_parameter == null and _parameter == "" '> WHERE 1 = 1 </if>
+
+</select>
+
+<!-- 헤더 장소 검색 -->
+<select id="searchPlace" resultType="com.with.vo.PlaceVO">
+	<!-- <![CDATA[
+		SELECT
+		    *
+		FROM 
+		    (SELECT 
+		        ROWNUM AS RNUM, T1.*
+		    FROM
+		        (SELECT 
+		            *
+		        FROM 
+		            TB_PLACE
+		        ORDER BY PLACE_NO DESC) T1
+		        ]]>
+		        <if test="cate == 0">
+		        <![CDATA[
+		    WHERE ROWNUM <= #{listSize} AND PLACE_TYPE = 0)
+		 WHERE RNUM > #{startList}
+	]]>
+	</if>
+	
+	<if test="cate == 1">
+		        <![CDATA[
+		    WHERE ROWNUM <= #{listSize} AND PLACE_TYPE = 1)
+		 WHERE RNUM > #{startList}
+	]]>
+	</if> -->
+<![CDATA[
+	SELECT * FROM
+		(SELECT ROWNUM AS RNUM, T1.* FROM
+		(SELECT * FROM TB_PLACE 
+		WHERE 
+		]]>
+		<if test='keyword != null or keyword != " " '>
+			<if test='keyword=="맛집"'>
+				PLACE_TYPE = 0 OR
+			</if>
+			<if test='keyword=="카페"'>
+				PLACE_TYPE = 1 OR
+			</if>
+			PLACE_NAME LIKE '%'||#{keyword}||'%'
+			OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%'
+			OR PLACE_MENU LIKE '%'||#{keyword}||'%' OR PLACE_DETAIL LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='keyword == null or keyword == " " '> 1 = 1 </if>
+		
+		<![CDATA[
+		ORDER BY PLACE_NO DESC) T1 WHERE ROWNUM <= #{listSize})
+		WHERE RNUM > #{startList}
+		]]>
+<!-- SELECT * FROM TB_PLACE WHERE PLACE_TYPE LIKE '%'||#{keyword}||'%' OR PLACE_NAME LIKE '%'||#{keyword}||'%'
+OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%' OR PLACE_MENU LIKE '%'||#{keyword}||'%'
+OR PLACE_DETAIL LIKE '%'||#{keyword}||'%' -->
+</select>
+
+<!-- 카테고리 별 장소 수 -->
+<select id="getCateListCnt" resultType="int" parameterType="com.with.Pagination">
+
+		SELECT count(*) as placeCnt
+		FROM TB_PLACE
+		   
+		WHERE PLACE_TYPE=#{cate}
+
+
+
+		<!-- SELECT count(*) as placeCnt
+		FROM TB_PLACE
+		<if test="cate == 0">   
+		WHERE PLACE_TYPE=0
+		</if>
+		
+		<if test="cate == 1">   
+		WHERE PLACE_TYPE=1
+		</if> -->
+	
+		<!-- SELECT count(*) as placeCnt
+		FROM (SELECT * FROM TB_PLACE
+		<if test="cate == 0">
+		<if test='_parameter != null and _parameter != "" '>
+	    WHERE PLACE_TYPE LIKE '%'||#{keyword}||'%' OR PLACE_NAME LIKE '%'||#{keyword}||'%'
+	    OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%'
+	    OR PLACE_MENU LIKE '%'||#{keyword}||'%' OR PLACE_DETAIL LIKE '%'||#{keyword}||'%')
+		</if>
+		<if test='_parameter == null and _parameter == "" '> WHERE 1 = 1) </if>
+		WHERE PLACE_TYPE=0
+		</if>
+		
+		<if test="cate == 1">
+		<if test='_parameter != null and _parameter != "" '>
+	    WHERE PLACE_TYPE LIKE '%'||#{keyword}||'%' OR PLACE_NAME LIKE '%'||#{keyword}||'%'
+	    OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%'
+	    OR PLACE_MENU LIKE '%'||#{keyword}||'%' OR PLACE_DETAIL LIKE '%'||#{keyword}||'%')
+		</if>
+		<if test='_parameter == null and _parameter == "" '> WHERE 1 = 1) </if>
+		WHERE PLACE_TYPE=1
+		</if> -->
+</select>
+
+<!-- 카테고리 별 장소 리스트 -->
+<select id="categoryPlace" resultType="com.with.vo.PlaceVO">
+<![CDATA[
+	SELECT * FROM
+		(SELECT ROWNUM AS RNUM, T1.* FROM
+		(SELECT * FROM TB_PLACE 
+		WHERE 
+		]]>
+		<if test='keyword != null or keyword != " " '>
+			PLACE_NAME LIKE '%'||#{keyword}||'%'
+			OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%'
+			OR PLACE_MENU LIKE '%'||#{keyword}||'%' OR PLACE_DETAIL LIKE '%'||#{keyword}||'%'
+		</if>
+		<if test='keyword == null or keyword == " " '>1 = 1 </if>
+		<if test="cate == 0">
+		<![CDATA[
+		ORDER BY PLACE_NO DESC) T1 WHERE ROWNUM <= #{listSize} AND PLACE_TYPE=#{cate})
+		WHERE RNUM > #{startList}
+		]]>
+		</if>
+		<if test="cate == 1">
+		<![CDATA[
+		ORDER BY PLACE_NO DESC) T1 WHERE ROWNUM <= #{listSize} AND PLACE_TYPE=#{cate})
+		WHERE RNUM > #{startList}
+		]]>
+		</if>
+<!-- SELECT * FROM TB_PLACE WHERE PLACE_TYPE LIKE '%'||#{keyword}||'%' OR PLACE_NAME LIKE '%'||#{keyword}||'%'
+OR PLACE_ADR1 LIKE '%'||#{keyword}||'%' OR PLACE_ADR2 LIKE '%'||#{keyword}||'%' OR PLACE_MENU LIKE '%'||#{keyword}||'%'
+OR PLACE_DETAIL LIKE '%'||#{keyword}||'%' -->
+</select>
+
+<!-- 장소리스트 -->
+<select id="getPlaceList" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT
+		    *
+		FROM 
+			TB_PLACE
+	]]>
+</select>
+<!-- 북마크 추가 -->
+<insert id="bookmarkRegister">
+	<![CDATA[
+		INSERT INTO TB_BOOKMARK(USER_NO, PLACE_NO)
+		VALUES(#{user_no}, #{place_no})
+	]]>
+</insert>
+
+<!-- 북마크 삭제 -->
+<delete id="bookmarkDelete">
+	<![CDATA[
+		DELETE FROM TB_BOOKMARK
+		WHERE USER_NO = #{user_no}
+		AND PLACE_NO = #{place_no}
+	]]>
+</delete>
+
+
+<!-- 메인 북마크 리스트 -->
+<select id="getBookmarkPlaceList" parameterType="int" resultType="com.with.vo.PlaceVO">
+	<![CDATA[
+		SELECT *
+		FROM TB_PLACE 
+		WHERE PLACE_NO IN (SELECT PLACE_NO
+							FROM TB_BOOKMARK
+							WHERE USER_NO = #{user_no})
+	]]>
+</select>
+
+<!-- 나의 북마크 리스트 -->
+<select id="getBookmarkList" parameterType="int" resultType="int">
+	<![CDATA[
+		SELECT PLACE_NO
+		FROM TB_BOOKMARK
+		WHERE USER_NO=#{user_no}
+	]]>
+</select>
+
+	<!-- 북마크 페이지 개수 -->
+	<select id="myBookMarkPageCnt" resultType="int"
+		parameterType="com.with.Pagination">
+		SELECT COUNT(*)
+		FROM TB_BOOKMARK
+		WHERE USER_NO = #{user_no};
+	</select>
+	
+	<!-- 나의 북마크 개수 -->
+	<select id="myCountBookmark" resultType="int">
+	    SELECT COUNT(*)
+	    FROM TB_BOOKMARK
+	    WHERE USER_NO = #{user_no}
+	</select>
+	
+	<!-- 나의 북마크 목록(페이징) -->
+	<select id="getPagination" resultType="com.with.vo.PlaceVO">
+    <!-- <![CDATA[
+    SELECT * FROM (
+        SELECT A.*, ROWNUM AS RNUM
+        FROM (
+            SELECT *
+            FROM TB_PLACE 
+            WHERE PLACE_NO IN (
+                SELECT PLACE_NO
+                FROM TB_BOOKMARK
+                WHERE USER_NO = #{user_no}
+            )
+            ORDER BY PLACE_NO
+        ) A
+        WHERE ROWNUM <= #{endRownum}
+    ) 
+    WHERE RNUM >= #{startRownum}
+    ]]> -->
+    <![CDATA[
+    SELECT *
+      FROM
+        (SELECT 
+              ROWNUM AS RNUM, T1.*
+          FROM
+            
+            (SELECT 
+                  *
+              FROM 
+        TB_PLACE 
+      WHERE PLACE_NO IN (SELECT PLACE_NO
+                     FROM TB_BOOKMARK
+                     WHERE USER_NO = #{user_no})) T1 WHERE ROWNUM <=#{listSize}) WHERE RNUM > #{startList}
+      ]]>
+</select>
+</mapper>

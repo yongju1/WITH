@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+body {
+    width: 100%;
+    height: 100%;
+}
+
+/* 버튼 스타일 */
+.buttonstyle {
+    border: 1px solid #000000;
+    color: #000;
+    background-color: white;
+    margin-bottom: 7px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 10pt;
+}
+
+.buttonstyle:hover {
+    box-shadow: 0px 15px 20px rgba(131, 131, 131, 0.4);
+    transform: translateY(-5px);
+    background-color: #000000;
+    color: white;
+}
+
+.buttonstyle:focus {
+    background-color: #000000;
+    color: white;
+    border: 3px solid #c9c9c9;
+}
+
+/* 팝업 모달 */
+.updateGbook {
+    width: 100%;
+    height: 100%;
+    background-color: white !important;
+}
+
+.updateGbook .top {
+    background-color: #000000;
+    width: 95%;
+    height: 60px;
+  
+}
+
+.updateGbook .top .subject {
+    float: left;
+    margin-left: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    line-height: 65px;
+}
+
+.updateGbook .bottom {
+    width: 100%;
+    vertical-align: middle;
+}
+
+.updateGbook .bottom .contents {
+    margin: 20px 30px 20px 30px;
+    text-align: center;
+}
+
+.updateGbook ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.updateGbook ul li {
+    text-align: left;
+    padding: 5px;
+    height: 30px;
+}
+
+.updateGbook ul li .text_subject {
+    width: 10%;
+    height: 100%;
+    float: left;
+    font-size: 18px;
+}
+
+.updateGbook ul li .text_desc {
+    height: 25px;
+    width: 100%;
+    float: left;
+}
+
+.updateGbook ul li .text_type1 {
+    height: 100% !important;
+    width: 100%;
+    border: 1px solid #000;
+}
+
+.textarea_type1 {
+	width : 95%;
+	height : 23px;
+	font-size : 18px;
+}
+
+.normal_move_board_modal .bottom .contents .edit {
+    width: 100% !important;
+    height: 40px;
+    font-size: 15px;
+}
+
+.edit {
+	width: 96% !important;
+	height: 40px;
+	font-size: 15px;
+}

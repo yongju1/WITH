@@ -1,0 +1,303 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'SejonghospitalBold';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2') format('woff2');
+    font-weight: 700;
+    font-style: normal;
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+  font-family: 'seolleimcool-SemiBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/seolleimcool-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow: scroll;
+  background-color: white;
+}
+
+  /*body 스크롤바*/
+body::-webkit-scrollbar {
+  width: 12px;
+  height: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background-color: rgb(218, 218, 218);
+  border-radius: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+  border-radius: 5px;
+  background-color: #000;
+}
+
+body::-webkit-scrollbar-button {
+  width: 0;
+  height: 0;
+}
+
+/* body {
+    font-family: 'SejonghospitalBold';
+    overflow: scroll;
+    display: flex;
+    justify-content: center;
+    background-color: var(--app-container);
+} */
+.app-container {
+    width: 95%;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: var(--app-container);
+    transition: 0.2s;
+    max-width: 1800px;
+  }
+  
+  .app-container button,
+  .app-container input,
+  .app-container optgroup,
+  .app-container select,
+  .app-container textarea {
+    /* font-family: 'Gowun Dodum', sans-serif; */
+    font-family: 'Cafe24Ssurround';
+  }
+  
+  .app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px 24px;
+    position: relative;
+  }
+  
+  .app-header-left,
+  .app-header-middle,
+  .app-header-right {
+    display: flex;
+    align-items: center;
+  }
+  
+  .app-header-left {
+    flex-grow: 1;
+  }
+
+  .app-name {
+    float: left;
+    margin: 0;
+    font-size: 20px;
+    line-height: 24px;
+    font-weight: 700;
+    margin: 0 32px;
+  }
+
+  .app-header-middle p {
+    margin-left: 70px;
+    /* font-family: 'SejonghospitalBold'; */
+    font-family: 'Cafe24Ssurround';
+  }
+  
+  .app-header-middle a {
+  text-decoration: none;
+  margin-left: 70px;
+  /* font-family: 'SejonghospitalBold'; */
+  font-family: 'Cafe24Ssurround';
+  color: #000;
+  font-size: 20px;
+  }
+  
+  
+  .app-header-right button {
+    margin-left: 15px;
+  }
+  
+  .search {
+    padding-right: 12px;
+    margin-left: 100px;
+    position: relative;
+    width: 400px;
+  }
+  
+  .search input {
+    width: 100%;
+    border: 1px solid #000;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 14px;
+    
+  }
+
+.searchbtn {
+	position : absolute;
+	top: 19px;
+	right: 15px;
+	margin: 0;
+	border: none;
+	width: 50px;
+	background-color: #fff;
+}
+
+  .search a {
+    position : absolute;
+    width: 17px;
+    top: 19px;
+    right: 20px;
+    margin: 0;
+    color: black;
+    
+  }
+
+
+  .tooltip {
+    position: absolute;
+    /* bottom: -10px; */
+    padding: 0 12px;
+    height: 27px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 13px;
+    font-family: 'Cafe24Ssurround';
+    line-height: 27px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .location-btn{
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+  
+.admin-btn {
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+
+  
+  
+  .join-btn {
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .bookmark-btn {
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .profile_btn {
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+  }
+
+  .logout_btn {
+    color:  #1f1c2e;
+    background-color: transparent;
+    border: 0;
+    border-radius: 50%;
+    padding: 0;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      .tooltip {
+        opacity: 1;
+      }
+    }
+}

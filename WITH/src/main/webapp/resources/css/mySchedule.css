@@ -1,0 +1,233 @@
+.container {
+	margin: 40px 30px;
+}
+
+/* 바디 */
+.myschedule {
+	font-family: 'SejonghospitalBold';
+	font-size: 40px;
+	margin-top: 50px;
+	margin-left: 300px;
+}
+
+/* INPUT 가리기 */
+.section [id*="slide"] {
+	display: none;
+}
+
+/* 슬라이드 영역 - max-width 크기를 조절해주면 됩니다*/
+.section .slidewrap {
+	width: 350px;
+	text-align: center;
+	margin: 0 auto;
+	position: relative;
+}
+
+li {
+	display: inline-block;
+	width: 270px;
+	height: 10px;
+	transition: all .5s;
+}
+
+li>a {
+	position: relative;
+	font-size: 40px;
+}
+
+/* 좌우로 넘기는 LABEL버튼에 대한 스타일 */
+.section .slide-control {
+	height: 100px;
+}
+
+.section .slide-control label {
+	font-family: 'SejonghospitalBold';
+	position: absolute;
+	z-index: 100;
+	height: 50px;
+	width: 50px;
+	cursor: pointer;
+}
+
+.section .slide-control .left {
+	left: 40px;
+	background: url("../img/left.png") center/100% no-repeat;
+}
+
+.section .slide-control .right {
+	right: 40px;
+	background: url("../img/right.png") center center/100% no-repeat;
+}
+
+.section .slide-control [class*="control"] {
+	display: none;
+}
+
+/* INPUT이 체크되면 변화값이 li까지 전달되는 스타일 */
+.section [id="slide01"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(0%);
+}
+
+.section [id="slide02"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-103%);
+}
+
+.section [id="slide03"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-206%);
+}
+
+.section [id="slide04"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-309%);
+}
+
+.section [id="slide05"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-412%);
+}
+
+.section [id="slide06"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-515%);
+}
+
+.section [id="slide07"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-620%);
+}
+
+.section [id="slide08"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-722%);
+}
+
+.section [id="slide09"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-825%);
+}
+
+.section [id="slide10"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-933%);
+}
+
+.section [id="slide11"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-1038%);
+}
+
+.section [id="slide12"]:checked ~.slidewrap .slidelist>li {
+	transform: translateX(-1140%);
+}
+
+/*  INPUT이 체크되면 변화값이 좌우 슬라이드 버튼을 담고 있는 div 까지 전달되는 스타일 */
+.section [id="slide01"]:checked ~.slidewrap .control01 {
+	display: block;
+}
+
+.section [id="slide02"]:checked ~.slidewrap .control02 {
+	display: block;
+}
+
+.section [id="slide03"]:checked ~.slidewrap .control03 {
+	display: block;
+}
+
+.section [id="slide04"]:checked ~.slidewrap .control04 {
+	display: block;
+}
+
+.section [id="slide05"]:checked ~.slidewrap .control05 {
+	display: block;
+}
+
+.section [id="slide06"]:checked ~.slidewrap .control06 {
+	display: block;
+}
+
+.section [id="slide07"]:checked ~.slidewrap .control07 {
+	display: block;
+}
+
+.section [id="slide08"]:checked ~.slidewrap .control08 {
+	display: block;
+}
+
+.section [id="slide09"]:checked ~.slidewrap .control09 {
+	display: block;
+}
+
+.section [id="slide10"]:checked ~.slidewrap .control10 {
+	display: block;
+}
+
+.section [id="slide11"]:checked ~.slidewrap .control11 {
+	display: block;
+}
+
+.section [id="slide12"]:checked ~.slidewrap .control12 {
+	display: block;
+}
+
+
+.calendar {
+	width: 400px;
+	height: 350px;
+	background-color: beige;
+	float: left;
+}
+
+h2 {
+	float: right;
+	margin-right: 830px;
+}
+
+.scheduledetail1 {
+	float: left;
+	width: 600px;
+	height: 214.36px;
+	margin-left: 50px;
+	margin-top: 20px;
+	border: solid 1.5px rgb(209, 209, 209);
+}
+
+img {
+	width:150px;
+	float: left;
+}
+
+h3 {
+	margin-top: 33px;
+	margin-left: 30px;
+	float: left;
+	width: 400px;
+}
+
+#update {
+	float: right;
+	width: 60px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: rgb(0, 0, 0);
+	cursor: pointer;
+	outline: none;
+	font-size: 18px;	
+}
+
+#delete {
+	float: right;
+	width: 60px;
+	height: 30px;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	background-color: rgb(0, 0, 0);
+	cursor: pointer;
+	outline: none;
+	font-size: 18px;
+	float: right;
+	margin-right: 10px;
+}
+
+.scheduledetail2 {
+	float: left;
+	width: 600px;
+	height: 214.36px;
+	margin-left: 50px;
+	margin-top: 20px;
+	border: solid 1.5px rgb(209, 209, 209);
+}

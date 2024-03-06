@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+<resultMap type="com.with.vo.BoardVO"
+		id="BoardVO">
+		<result property="com.with.vo.UserVO.user_no"
+			column="user_no" />
+		<!-- <result property="com.with.vo.BcommentVO.board_no"
+		column="board_no" /> -->
+</resultMap>
+
+<insert id="register">
+		<![CDATA[
+		INSERT INTO TB_BOARD (BOARD_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_DATE)
+		                 VALUES(board_seq.nextval
+		                 		  , #{board_title}
+		                 		  , #{board_content}
+		                 		  , #{board_date} )
+		]]>
+	   
+	</insert>
+	
+	<!-- 게시글 작성 -->
+    <insert id="boardUpload">
+		<![CDATA[
+		INSERT INTO TB_BOARD (BOARD_NO, USER_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, BOARD_IMG, BOARD_VIEW)
+		                 VALUES(board_seq.nextval
+		                          , #{user_no}
+		                          , #{board_type}
+		                 		  , #{board_title}
+		                 		  , #{board_content}
+		                 		  , #{board_img}
+		                 		  , #{board_view})
+		]]>
+	   
+	</insert>
+	
+	<!-- 게시판 불러오기  -->
+	<select id="boardList" resultType="com.with.vo.BoardVO">
+		<![CDATA[
+			SELECT *
+      FROM 
+          (SELECT 
+              ROWNUM AS RNUM, T1.*
+          FROM(
+				 SELECT BOARD_NO
+               , USER_NAME
+               , BOARD_TITLE
+               , BOARD_DATE
+               , BOARD_VIEW
+         FROM TB_BOARD a, TB_USER b
+         WHERE a.USER_NO = b.USER_NO
+         ]]>
+         <if test='keyword != null or keyword != " " '>
+         	AND (
+			<if test='keyword=="맛집"'>
+			 BOARD_TYPE = 0 OR
+			</if>
+			<if test='keyword=="카페"'>
+				BOARD_TYPE = 1 OR
+			</if>
+			<if test='keyword=="잡담"'>
+				BOARD_TYPE = 2 OR
+			</if>
+			BOARD_TITLE LIKE '%'||#{keyword}||'%'
+			OR BOARD_CONTENT LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%') order by BOARD_NO DESC
+		</if>
+		<if test='keyword == null or keyword == " " '> 1 = 1 </if>
+		<if test='order==" "'>
+               order by BOARD_NO ASC
+        </if>
+        <if test='order=="최신순"'>
+        		order by BOARD_DATE DESC
+        </if>
+        <if test='order=="인기순"'>
+        		order by BOARD_VIEW DESC
+        </if>
+         <![CDATA[
+               ) T1
+                    WHERE ROWNUM <= #{listSize})
+       WHERE RNUM > #{startList}
+					
+		]]>
+	</select>
+	
+	
+	<!-- 게시글 내용 상세보기 -->
+	<select id="boardDetail" resultType="com.with.vo.BoardVO">
+		<![CDATA[
+			select BOARD_NO
+					, a.USER_NO
+					, USER_NAME
+					, BOARD_TITLE
+					, BOARD_DATE
+					, BOARD_TYPE
+					, BOARD_CONTENT
+					, BOARD_VIEW
+					, BOARD_IMG
+					, COMMENT_CNT
+			FROM TB_BOARD a
+					, TB_USER b
+					
+			WHERE a.USER_NO = b.USER_NO AND BOARD_NO=#{board_no}
+		]]>
+	</select>
+	
+	<!-- 게시글 모두 불러오기  -->
+	<select id="boardAllList" resultType="com.with.vo.BoardVO">
+		<![CDATA[
+	SELECT * FROM
+		(SELECT ROWNUM AS RNUM, T1.* FROM
+		(SELECT B.*, U.USER_NAME, U.USER_EMAIL FROM TB_BOARD B, TB_USER U
+		WHERE B.USER_NO = U.USER_NO
+		
+		]]>
+		<if test='keyword != null or keyword != " " '>
+			AND (U.USER_NAME LIKE '%' || #{keyword} || '%' 
+        OR B.BOARD_TITLE LIKE '%' || #{keyword} || '%')
+		</if>
+		<if test='keyword == null or keyword == " " '> AND  1 = 1 </if>
+		
+		<if test="order == 'DESC'">ORDER BY B.BOARD_NO DESC</if>
+		<if test="order == 'ASC'">ORDER BY B.BOARD_NO ASC</if>
+
+
+		<![CDATA[
+		) T1
+    	WHERE ROWNUM <= #{listSize})
+		WHERE RNUM > #{startList}
+		]]>
+	</select>
+	
+	<!-- 댓글 수 업데이트  -->
+	<select id="updateCommentCnt" parameterType="int">
+		<![CDATA[
+			UPDATE TB_BOARD
+			SET COMMENT_CNT = (SELECT COUNT(COMMENT_NO) FROM TB_BCOMMENT WHERE BOARD_NO = #{board_no})
+			WHERE BOARD_NO = #{board_no}
+		]]>
+	</select>
+	
+	
+	<!-- 게시판 글 수정  -->
+	<update id="boardUpdate">
+	<![CDATA[
+		UPDATE 
+			TB_BOARD 
+			SET 
+			BOARD_TITLE = #{board_title},
+			BOARD_CONTENT = #{board_content},
+			BOARD_IMG = #{board_img}
+		WHERE 
+			BOARD_NO=#{board_no}
+	]]>
+	</update>
+	
+	<!-- 게시판 글 삭제  -->
+	<delete id="boardDelete" parameterType="int">
+	<![CDATA[
+    DELETE FROM TB_BOARD WHERE BOARD_NO = #{board_no}
+    ]]>
+    </delete>
+    
+    <!-- 이미지 업로드 -->
+    <insert id="fileUpload">
+    	<![CDATA[
+		INSERT INTO TB_FILE
+		(
+			FILE_NO,
+			BOARD_NO,
+			ORIGINAL_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE,
+			CREA_ID
+		)
+		VALUES
+		(
+			SEQ_TB_FILE_IDX.NEXTVAL,
+			#{BOARD_NO},
+			#{original_file_name},
+			#{stored_file_name},
+			#{file_size},
+			'Admin'
+		)
+	]]>
+    </insert>
+    
+    <!-- 조회수 업데이트 -->
+    <update id="addView" parameterType="int">
+    	<![CDATA[
+    	UPDATE TB_BOARD
+    	SET
+    		BOARD_VIEW = BOARD_VIEW + 1
+    	WHERE BOARD_NO=#{board_no}
+    	
+    ]]>
+    </update>
+    
+    <!-- 게시물 목록 -->
+    <select id="getBoardListCnt" resultType="int" parameterType="String">
+	
+		SELECT count(*) as boardCnt
+		FROM TB_BOARD 
+		
+		<if test='_parameter != null and _parameter != "" '>
+	    WHERE
+	    <if test='_parameter == "장소"'> BOARD_TYPE = 0 OR </if>
+	    <if test='_parameter == "카페"'> BOARD_TYPE = 1 OR </if>
+	    <if test='_parameter == "잡담"'> BOARD_TYPE = 2 OR </if>
+	   
+	    BOARD_TITLE LIKE '%'||#{keyword}||'%'
+	    OR BOARD_CONTENT LIKE '%'||#{keyword}||'%'
+	    
+	    </if>
+		<if test='_parameter == null and _parameter == "" '> WHERE 1 = 1 </if>
+</select>
+
+	<!-- 댓글 목록 -->
+	<select id="boardCommentList" resultType="com.with.vo.BcommentVO">
+		<![CDATA[
+			select COMMENT_NO
+					, b.USER_NAME
+					, COMMENT_CONTENT
+					, COMMENT_DATE
+					, b.USER_NO
+			FROM TB_BCOMMENT a
+					, TB_USER b
+			WHERE a.USER_NO = b.USER_NO AND a.BOARD_NO=#{board_no}
+		]]>
+	</select>
+	
+	<!-- 댓글 추가 -->
+	<insert id="boardCommentInsert">
+		<![CDATA[
+			INSERT INTO TB_BCOMMENT (COMMENT_NO, USER_NO, BOARD_NO, COMMENT_CONTENT)
+			VALUES (
+				 bcomment_seq.nextval
+				,#{user_no}
+				,#{board_no}
+				,#{comment_content})
+		]]>
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="boardCommentUpdate">
+	<![CDATA[
+		UPDATE TB_BCOMMENT
+    	SET
+    		COMMENT_CONTENT = #{comment_content}
+    	WHERE COMMENT_NO=#{comment_no}
+    	]]>
+	</update>
+	
+	<!-- 댓글삭제 -->
+    <delete id="boardCommentDelete" parameterType="int">
+    	<![CDATA[
+    		DELETE TB_BCOMMENT
+    		WHERE COMMENT_NO=#{comment_no}
+    	]]>
+    </delete>
+    
+    <!-- 댓글 내용 가져오기 -->
+    <select id="getComment" resultType="com.with.vo.BcommentVO">
+    <![CDATA[
+    	SELECT *
+    	FROM TB_BCOMMENT
+    	WHERE COMMENT_NO=#{comment_no}
+    ]]>
+    </select>
+    
+    <!-- 관리자 게시글 삭제 -->
+   <delete id="deleteBoard">
+   <![CDATA[
+    DELETE FROM TB_BOARD WHERE BOARD_NO = #{board_no}
+    ]]>
+    </delete>
+    
+    <!-- 관리자 게시글 리스트 검색 -->
+	<select id="searchBoard" resultType="com.with.vo.BoardVO">
+	<![CDATA[
+	SELECT * FROM
+		(SELECT ROWNUM AS RNUM, T1.* FROM
+		(SELECT B.*, U.USER_NAME, U.USER_EMAIL FROM TB_BOARD B, TB_USER U
+		WHERE B.USER_NO = U.USER_NO
+		
+		]]>
+		<if test='keyword != null or keyword != " " '>
+			AND (U.USER_NAME LIKE '%' || #{keyword} || '%' 
+        OR B.BOARD_TITLE LIKE '%' || #{keyword} || '%')
+		</if>
+		<if test='keyword == null or keyword == " " '> AND  1 = 1 </if>
+
+			<if test="order == 'DESC'">ORDER BY B.BOARD_NO DESC</if>
+			<if test="order == 'ASC'">ORDER BY B.BOARD_NO ASC</if>
+
+
+		<![CDATA[
+		) T1
+    	WHERE ROWNUM <= #{listSize})
+		WHERE RNUM > #{startList}
+		]]>
+    <!-- <![CDATA[
+    SELECT * FROM TB_BOARD, TB_USER WHERE TB_BOARD.USER_NO = TB_USER.USER_NO AND BOARD_TITLE LIKE '%'||#{keyword}||'%' OR USER_NAME LIKE '%'||#{keyword}||'%'
+    ]]> -->
+	</select>
+
+	<!-- 관리자 게시글 정렬 -->
+	<select id="getBoardListOrdered"
+		resultType="com.with.vo.BoardVO" parameterType="java.util.Map">
+		SELECT * FROM TB_BOARD, TB_USER WHERE TB_BOARD.USER_NO =
+		TB_USER.USER_NO
+		<trim prefix="ORDER BY">
+			<if test="order == 'DESC'">BOARD_DATE DESC</if>
+			<if test="order == 'ASC'">BOARD_DATE ASC</if>
+		</trim>
+	</select>
+
+	<!-- 관리자 게시글 페이지 게시글 수 -->
+	<select id="getAdminBoardListCnt" resultType="int" parameterType="String">
+	
+		SELECT count(*) as boardCnt
+		FROM TB_BOARD B, TB_USER U
+		WHERE B.USER_NO = U.USER_NO
+		
+		<if test='_parameter != null and _parameter != "" '>
+		AND
+		(USER_NAME LIKE '%'||#{keyword}||'%'
+	    OR BOARD_TITLE LIKE '%'||#{keyword}||'%')
+	    </if>
+		<if test='_parameter == null and _parameter == "" '> AND 1 = 1 </if>
+	</select>
+	
+	<!-- 나의 게시글 상세 -->
+	<select id="myBoardDetail" resultType="com.with.vo.BoardVO">
+		<![CDATA[
+			SELECT * 
+                FROM TB_BOARD 
+                  INNER JOIN TB_USER ON TB_BOARD.USER_NO = TB_USER.USER_NO
+                   WHERE BOARD_NO = #{board_no}
+		]]>
+	</select>
+	
+    <!--  나의 게시글 상세 댓글 -->
+	<select id="getMyComments" resultType="com.with.vo.BcommentVO">
+    SELECT * FROM TB_BCOMMENT INNER JOIN TB_USER ON TB_BCOMMENT.USER_NO = TB_USER.USER_NO
+    WHERE BOARD_NO = #{board_no}
+    </select>
+    
+   <!--  나의 게시글 -->
+    <select id="getMyBoardList" resultType="com.with.vo.BoardVO">
+	
+    SELECT *
+      FROM
+        (SELECT 
+              ROWNUM AS RNUM, T1.*
+          FROM
+            (SELECT 
+                  *
+              FROM 
+        TB_BOARD 
+      WHERE USER_NO IN (SELECT USER_NO
+                     FROM TB_BOARD
+                     WHERE USER_NO = #{user_no})
+                     
+                     <if test='keyword != null or keyword != "" '>
+                     AND (BOARD_TITLE LIKE '%'||#{keyword}||'%'
+                     OR BOARD_CONTENT LIKE '%'||#{keyword}||'%')
+                     </if>
+                     <if test='keyword == null or keyword == "" '>AND 1 = 1 </if>
+                     
+                     
+                     
+                     <if test="order == 'DESC'">ORDER BY BOARD_DATE DESC</if>
+                     <if test="order == 'ASC'">ORDER BY BOARD_DATE ASC</if>
+                     <![CDATA[    
+                     ) T1 WHERE ROWNUM <=#{listSize}) T2 WHERE T2.RNUM > #{startList}
+                     ]]> 
+</select>
+    
+    
+      
+    <!-- 나의 게시글 수 -->
+    <select id="myCountBoardList" resultType="int">
+    SELECT COUNT(*)
+    FROM TB_BOARD
+    WHERE USER_NO = #{user_no}
+    </select>
+    
+    <!-- 나의 게시글 검색 -->
+    <select id="mySearchBoard" resultType="com.with.vo.BoardVO">
+    SELECT * FROM TB_BOARD WHERE USER_NO LIKE '%'||#{keyword}||'%' OR BOARD_TITLE LIKE '%'||#{keyword}||'%'
+    </select>
+    
+    <!-- 나의 게시글 정렬 -->
+    <select id="getMyBoardListOrdered" resultType="com.with.vo.BoardVO" parameterType="java.util.Map">    
+	    SELECT * FROM TB_BOARD
+		<trim prefix="ORDER BY">
+		    <if test="order == 'DESC'">USER_DATE DESC</if>
+		    <if test="order == 'ASC'">USER_DATE ASC</if>
+		</trim>
+	</select>
+	
+	<!-- 게시물 이미지 수정 -->
+	<update id="fileUpdate">
+		UPDATE TB_FILE SET
+		ORIGINAL_FILE_NAME = #{original_file_name},
+		STORED_FILE_NAME = #{stored_file_name},
+		FILE_SIZE = #{file_size}
+		WHERE BOARD_NO = #{BOARD_NO}
+	</update>
+    
+</mapper>

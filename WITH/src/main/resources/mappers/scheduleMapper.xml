@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+		"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="scheduleMapper">
+<resultMap type="com.with.vo.ScheduleVO"
+		id="ScheduleVO">
+		<result property="com.with.vo.PlaceVO.PLACE_NO"
+			column="PLACE_NO" />
+		<!-- <result property="com.with.vo.BcommentVO.board_no"
+		column="board_no" /> -->
+</resultMap>
+
+	<!-- 일정 추가 -->
+	<insert id="schedule_add">
+		INSERT INTO TB_SCHEDULE
+		(SCHEDULE_NO, USER_NO,
+		PLACE_NO, SCHEDULE_TITLE, SCHEDULE_DATE, SCHEDULE_MEMO,
+		SCHEDULE_MYCOLOR)
+		VALUES
+		(SCHEDULE_SEQ.NEXTVAL, #{user_no}, #{place_no},
+		#{schedule_title}, #{schedule_date}, #{schedule_memo},
+		#{schedule_mycolor})
+	</insert>
+
+	<!-- 같은 날 일정 개수 -->
+	<select id="before_schedule_add_search" resultType="int">
+		SELECT
+		COUNT(*) FROM TB_SCHEDULE WHERE SCHEDULE_DATE = #{schedule_date}
+	</select>
+
+	<!-- 일정 목록 가져오기 -->
+	<select id="schedule_list" resultType="com.with.vo.ScheduleVO">        
+    <![CDATA[
+        SELECT * FROM TB_SCHEDULE WHERE SCHEDULE_DATE >= #{db_startDate} AND SCHEDULE_DATE <= #{db_endDate} AND USER_NO = #{user_no}
+        ORDER BY SCHEDULE_DATE, SCHEDULE_NO
+    ]]>
+	</select>
+
+	<!-- <select id="get" resultType="com.with.vo.ScheduleVO">
+		SELECT * FROM TB_SCHEDULE WHERE
+		SCHEDULE_NO = #{schedule_no}
+	</select> -->
+	
+	<!-- 일정 내용 가져오기 -->
+	<select id="get" resultType="com.with.vo.ScheduleVO">
+		SELECT * FROM TB_SCHEDULE S, TB_PLACE P WHERE S.PLACE_NO = P.PLACE_NO AND
+		SCHEDULE_NO = #{schedule_no}
+	</select>
+
+	<!-- 일정 수정 -->
+	<update id="update">
+		UPDATE TB_SCHEDULE
+		SET PLACE_NO = #{place_no},
+		SCHEDULE_TITLE = #{schedule_title},
+		SCHEDULE_DATE = #{schedule_date},
+		SCHEDULE_MEMO = #{schedule_memo},
+		SCHEDULE_MYCOLOR = #{schedule_mycolor}
+		WHERE SCHEDULE_NO = #{schedule_no}
+	</update>
+	
+	<!-- 일정 삭제 -->
+	<delete id="delete">
+		DELETE FROM TB_SCHEDULE WHERE SCHEDULE_NO =
+		#{schedule_no}
+	</delete>
+</mapper>

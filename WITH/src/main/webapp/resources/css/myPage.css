@@ -1,0 +1,113 @@
+@charset "UTF-8";
+
+
+body{
+	 font-family: 'SejonghospitalBold';
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --app-container: #f7f8fa;
+    --main-color: #1f1c2e;
+    --secondary-color: #4A4A4A;
+    --link-color: #1f1c2e;
+    --link-color-hover: #c3cff4;
+    --link-color-active: #fff;
+    --link-color-active-bg: #1f1c2e;
+    --projects-section: #fff;
+    --message-box-hover: #fafcff;
+    --message-box-border: #e9ebf0;
+    --more-list-bg: #fff;
+    --more-list-bg-hover: #f6fbff;
+    --more-list-shadow: rgba(209, 209, 209, 0.4);
+    --button-bg: #1f1c24;
+    --search-area-bg: #fff;
+    --star: #1ff1c2e;
+    --message-btn: #fff;
+}
+
+/*내 정보*/
+section {
+    float: left;
+    margin-top: 30px;
+    margin-left: 260px;
+}
+
+.container-wrapper {
+  width: 500px;
+  height: 500px;
+  /* border: 3px solid skyblue; */
+  border-radius: 50px;
+}
+
+section {
+  float: left;
+  margin-top: 50px;
+  margin-left: 230px;
+}
+
+.myinfo {
+  font-family: 'SejonghospitalBold';
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+  font-weight: 700;
+}
+
+.mypage p {
+  width: 100px;
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 2px;
+  margin: 30px 30px 0px 0px;
+}
+
+
+
+.mypage .detail {
+  display: flex;
+  margin-left: 60px;
+  margin-bottom: 20px;
+}
+
+.mypage .detail h4 {
+  font-family: 'SejonghospitalBold';
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+/*수정 버튼*/
+.btn {
+  display: flex;
+  margin-left: 100px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.modifybtn {
+  font-family: 'SejonghospitalBold';
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: 3px solid black;
+  border-radius: 15px;
+  font-size: large;
+  margin-right: 20px;
+}
+
+.pwbtn {
+    font-family: 'SejonghospitalBold';
+    width: 80px;
+    height: 40px;
+    background-color: #fff;
+    border: 3px solid black;
+    border-radius: 15px;
+    font-size: large;
+    margin-right: 20px;
+}

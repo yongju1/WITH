@@ -1,0 +1,127 @@
+@charset "UTF-8";
+
+body{
+	 font-family: 'SejonghospitalBold';
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --app-container: #f7f8fa;
+  --main-color: #1f1c2e;
+  --secondary-color: #4A4A4A;
+  --link-color: #1f1c2e;
+  --link-color-hover: #c3cff4;
+  --link-color-active: #fff;
+  --link-color-active-bg: #1f1c2e;
+  --projects-section: #fff;
+  --message-box-hover: #fafcff;
+  --message-box-border: #e9ebf0;
+  --more-list-bg: #fff;
+  --more-list-bg-hover: #f6fbff;
+  --more-list-shadow: rgba(209, 209, 209, 0.4);
+  --button-bg: #1f1c24;
+  --search-area-bg: #fff;
+  --star: #1ff1c2e;
+  --message-btn: #fff;
+}
+
+.con {
+  justify-content: space-between;
+  align-items: center;
+  flex: 2;
+  background-color: var(--projects-section);
+  border-radius: 32px;
+  margin: 50px;
+  flex-direction: column;
+}
+
+/* 네비게이션 바 */
+
+.container {
+  margin: 40px 30px;
+}
+
+.sidebar {
+  width: 100px;
+}
+
+/* 사이드바 */
+nav {
+  float: left;
+  margin: 60px 100px 0px 40px;
+}
+
+/* .mypage-bar {
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  overflow-x: hidden;
+} */
+
+.mypage-bar .m,
+.icon-bar p, span {
+  color: black;
+  margin-top: 20px;
+}
+
+
+.mypage-bar p, span {
+  font-family: 'seolleimcool-SemiBold';
+  font-size: 20px;
+  margin-bottom: 80px;
+}
+
+.container {
+  margin: 30px 30px;
+}
+
+.myinfo-btn{
+   background-color: #fff;
+   border-color: #fff;
+   border-style: none;
+}
+
+.scheldule-btn{
+   background-color: #fff;
+   border-color: #fff;
+   border-style: none;
+}
+
+.list-btn{
+   background-color: #fff;
+   border-color: #fff;
+   border-style: none;
+}
+
+.bmark-btn{
+   background-color: #fff;
+   border-color: #fff;
+   border-style: none;
+}
+
+.tooltip {
+    /* position: absolute; */
+    /* bottom: -10px; */
+    /* padding: 0 12px; */
+    height: 27px;
+    border-radius: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    font-size: 13px;
+    line-height: 27px;
+    white-space: nowrap;
+    transition: opacity 0.2s;
+    opacity: 0;
+    pointer-events: none;
+  }
+  
+  .gbook-btn {
+  background-color: #fff;
+   border-color: #fff;
+   border-style: none;
+  }

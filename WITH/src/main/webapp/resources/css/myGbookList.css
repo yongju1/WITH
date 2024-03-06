@@ -1,0 +1,286 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --app-container: #f7f8fa;
+  --main-color: #1f1c2e;
+  --secondary-color: #4A4A4A;
+  --link-color: #1f1c2e;
+  --link-color-hover: #c3cff4;
+  --link-color-active: #fff;
+  --link-color-active-bg: #1f1c2e;
+  --projects-section: #fff;
+  --message-box-hover: #fafcff;
+  --message-box-border: #e9ebf0;
+  --more-list-bg: #fff;
+  --more-list-bg-hover: #f6fbff;
+  --more-list-shadow: rgba(209, 209, 209, 0.4);
+  --button-bg: #1f1c24;
+  --search-area-bg: #fff;
+  --star: #1ff1c2e;
+  --message-btn: #fff;
+}
+
+.container-wrapper {
+  width: 500px;
+  height: 500px;
+  /* border: 3px solid skyblue; */
+  border-radius: 50px;
+}
+
+section {
+  float: left;
+  margin-top: 50px;
+  margin-left: 100px;
+}
+
+.myinfo {
+  font-family: 'SejonghospitalBold';
+  width: 500px;
+  margin: 0 auto;
+  position: relative;
+  font-weight: 700;
+}
+
+.mypage p {
+  width: 100px;
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 2px;
+  margin: 30px 30px 0px 0px;
+}
+
+.mypage .detail {
+  display: flex;
+  margin-left: 60px;
+  margin-bottom: 20px;
+}
+
+.mypage .detail h4 {
+  font-family: 'SejonghospitalBold';
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+/*수정 버튼*/
+.btn {
+  display: flex;
+  margin-left: 200px;
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.modifybtn {
+  font-family: 'SejonghospitalBold';
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: 3px solid pink;
+  border-radius: 15px;
+  font-size: large;
+}
+
+/* 목록 관련 css */
+
+.writelist-table {
+  width: 900px;
+  max-width: 1200px;
+  text-align: center;
+  background-color: #ffffff;
+  border-radius: 10px;
+  border-spacing: 10px 10px;
+  border-collapse: collapse;
+}
+
+.writelist-table thead {
+  position: sticky;
+  top: 0px;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+}
+
+
+.writelist-table th {
+  text-align: center;
+  padding: 25px;
+}
+
+.writelist-table tbody tr {
+  height: 30px;
+  border-bottom: 1px solid rgb(171, 171, 171);
+}
+
+.writelist-table button {
+  border-radius: 6px;
+  color: #ffffff;
+  background-color: black;
+  cursor: pointer;
+}
+
+/* 검색 */
+.form-control {
+  font-family: 'SejonghospitalBold';
+  display: flex;
+  width: 100%;
+  height: 40px;
+  font-size: 1rem;
+  padding-left: 10px;
+  color: rgb(137, 137, 137);
+  border: 3px solid black;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.list-title {
+  margin: 0px 0 20px 70px;
+  justify-content: space-between;
+}
+
+.list-title2 {
+  vertical-align: middle;
+  display: inline-flex;
+}
+
+.table-title {
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.search_bar {
+  display: flex;
+  margin: 0px 20px;
+  margin-left:650px;
+}
+
+.search-btn {
+  border: 3px solid black;
+  border-radius: 10px;
+  border: none;
+  width: 50px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+
+/*드롭박스*/
+.dropdown {
+  display: inline-block;
+}
+
+.dropdown:hover {
+  display: block;
+
+}
+
+.pl {
+  font-family: 'SejonghospitalBold';
+  border: 3px solid black;
+  border-radius: 10px;
+  padding: 10px 10px;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+/*페이지*/
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #000000;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination > li:nth-last-child(1) > a,
+.pagination > li:nth-last-child(1) > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: #2a6496;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 1;
+  color: #fff;
+  cursor: default;
+  background-color: #000000;
+  border-color: #000000;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #999;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.pagination-lg > li > a,
+.pagination-lg > li > span {
+  padding: 10px 16px;
+  font-size: 18px;
+}
+.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > span {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:nth-last-child(1) > a,
+.pagination-lg > li:nth-last-child(1) > span {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > span {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:nth-last-child(1) > a,
+.pagination-sm > li:nth-last-child(1) > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+

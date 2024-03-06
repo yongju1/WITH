@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="gbookMapper">
+	<resultMap type="com.with.vo.BoardVO" id="BoardVO">
+		<result property="com.with.vo.UserVO.user_no" column="user_no" />
+	</resultMap>
+	
+	<!-- 방영록 목록 -->
+	<select id="list" resultType="com.with.vo.GbookVO">
+		SELECT *
+		FROM TB_GBOOK G, TB_USER U
+		WHERE G.USER_NO = U.USER_NO AND PLACE_NO = #{place_no}
+	</select>
+	
+	<!-- 모든 방명록 불러오기 -->
+	<select id="getGbookList" resultType="com.with.vo.GbookVO">
+    <![CDATA[
+    SELECT *
+    FROM (SELECT ROWNUM AS RNUM, T1.*
+    FROM
+    (SELECT G.*, U.USER_NAME, P.PLACE_NAME, P.PLACE_IMG1
+    FROM TB_GBOOK G, TB_USER U , TB_PLACE P
+    WHERE G.USER_NO = U.USER_NO AND G.PLACE_NO = P.PLACE_NO
+    ]]>
+    <if test='keyword!=null and keyword!=" "'>
+        <![CDATA[AND (P.PLACE_NAME LIKE '%'||#{keyword}||'%'
+        		OR G.GBOOK_CONTENT LIKE '%'||#{keyword}||'%')  ]]>
+    </if>
+    <if test='keyword==null or keyword==""'>
+        <![CDATA[AND 1 = 1]]>
+    </if>
+    <if test="order == 'DESC'">ORDER BY GBOOK_DATE DESC</if>
+    <if test="order == 'ASC'">ORDER BY GBOOK_DATE ASC</if>
+    <![CDATA[
+    ) T1
+    WHERE ROWNUM <= #{listSize})
+    WHERE RNUM > #{startList}
+    ]]>
+</select>
+	
+	<!-- 방명록수 가져오기 -->
+	<select id="getGbookCnt" resultType="int" parameterType="java.lang.String">
+	<![CDATA[
+		SELECT COUNT(*)
+		FROM TB_GBOOK G, TB_PLACE P
+		WHERE G.PLACE_NO=P.PLACE_NO
+	]]>
+		 AND (P.PLACE_NAME LIKE '%'||#{keyword}||'%'
+		 OR G.GBOOK_CONTENT LIKE '%'||#{keyword}||'%')
+	</select>
+	
+	<!-- 방영록 추가 -->
+	<insert id="add" parameterType="com.with.vo.GbookVO">
+		INSERT INTO TB_GBOOK (GBOOK_NO,
+		USER_NO, PLACE_NO, GBOOK_CONTENT)
+		VALUES (GBOOK_SEQ.NEXTVAL,
+		#{user_no}, #{place_no}, #{gbook_content})
+	</insert>
+
+	<!-- 나의 방명록수 가져오기 -->
+	<select id="myGbookListCnt" resultType="int">
+		SELECT COUNT(*)
+		FROM TB_GBOOK G, TB_USER U, TB_PLACE P WHERE G.USER_NO =
+		U.USER_NO AND G.PLACE_NO = P.PLACE_NO
+		AND U.USER_NO = #{user_no}
+	</select>
+
+	<!-- 마이페이지 방영록 목록 -->
+	<select id="myGbooklist" resultType="com.with.vo.GbookVO">
+	<![CDATA[
+		SELECT *
+		FROM (SELECT ROWNUM AS RNUM, T1.*
+		    FROM
+		    (SELECT G.*, U.USER_NAME,
+		P.PLACE_NAME FROM TB_GBOOK G, TB_USER U, TB_PLACE P WHERE G.USER_NO =
+		U.USER_NO AND G.PLACE_NO = P.PLACE_NO
+		AND U.USER_NO = #{user_no}) T1
+		 WHERE ROWNUM <= #{listSize})
+		 WHERE RNUM > #{startList}
+		]]>
+	</select>
+	
+	<!-- 모든 방영록 목록 -->
+	<select id="gbook" resultType="com.with.vo.GbookVO">
+		SELECT * FROM TB_GBOOK WHERE
+		GBOOK_NO = #{gbook_no}
+	</select>
+
+	<!-- 방영록 삭제 -->
+	<delete id="delete" parameterType="int">
+		DELETE FROM TB_GBOOK
+		WHERE GBOOK_NO = #{gbook_no}
+	</delete>
+
+	<!-- 방영록 수정 -->
+	<update id="update">
+		UPDATE TB_GBOOK
+		SET
+		GBOOK_CONTENT = #{gbook_content}
+		WHERE GBOOK_NO = #{gbook_no}
+	</update>
+	
+	<!-- 수정 삭제된 방명록 수 카운트 -->
+	<select id="updateGbookCnt" parameterType="int">
+		<![CDATA[
+			UPDATE TB_PLACE P
+			SET P.GBOOK_CNT = (SELECT COUNT(GBOOK_NO) FROM TB_GBOOK WHERE PLACE_NO = #{place_no})
+			WHERE P.PLACE_NO = #{place_no}
+		]]>
+	</select>
+</mapper>

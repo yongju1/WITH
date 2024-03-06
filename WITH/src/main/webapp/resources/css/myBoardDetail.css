@@ -1,0 +1,225 @@
+@charset "UTF-8";
+
+ .content {
+    width: 1000px;
+    height: auto;
+    padding: 15px 35px 15px 35px;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    border-radius: 20px;
+    box-shadow: 4px 4px 10px rgba(0,0,0,0.3);
+    margin-top: 100px;
+  }
+  
+  .title {
+    font-size: 30px;
+    color: #5c5c5c;
+  }
+
+  .writer {
+    color: #a0a0a0;
+    margin-top: -20px;
+  }
+
+  .comment {
+    width: 1000px;
+    height: auto;
+    padding: 15px 35px 15px 35px;
+    background-color: rgb(255, 255, 255);
+    margin: auto;
+    margin-top: 40px;
+    margin-bottom: 100px;
+  }
+
+  .comment_detail {
+    margin-left: 25px;
+    margin-top: -5px;
+  }
+
+  .comment_time {
+    margin-left: 10px;
+    margin-top: -15px;
+  }
+
+  .textInput {
+    width: 1000px;
+    height: 150px;
+    margin-bottom: 40px;
+  }
+
+  .content_detail {
+    margin-top: 40px;
+    color: #5c5c5c;
+  }
+
+  .upload {
+	background-color: #fff;
+	border: 2px solid black;
+    float: right;
+    margin-top: -20px;
+    width: 70px;
+    height: 40px;
+    border-radius: 5px;
+    margin-top: 45px;
+	margin-left: 10px;
+  }
+  
+.upload:hover {
+	background-color: #f0f0f0;
+}
+  
+.comment_element{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin: 40px;
+	/* margin-bottom: 40px; */
+}
+
+.inputarea {
+	display: flex;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+  
+.comment_content {
+	width: 100%;
+	height: 50px;
+	margin-top: 40px;
+	margin-bottom: 40px;
+}
+  
+
+  
+  /* 박스 */
+
+.write{
+	margin: 0 auto;
+	padding: 20px;
+	width: 800px;
+	font-family: 'SejonghospitalBold';
+}
+  
+  .write textarea{
+    font-family: 'SejonghospitalBold';
+  }
+
+  .qnatext1{
+    width:100%;
+    border-color:black;
+    border-radius: 5px;
+    padding: 10px;
+    border:1;
+    overflow:visible;
+    text-overflow:ellipsis;
+  }
+
+  .qnatext2{
+    width:100%;
+    border-color:black;
+    border-radius: 5px;
+    padding: 10px;
+    border:1;
+    overflow:visible;
+    text-overflow:ellipsis;
+  }
+
+  .qnatext3{
+    width:100%;
+    border-color:black;
+    border-radius: 5px;
+    padding: 10px;
+    border:1;
+    overflow:visible;
+    text-overflow:ellipsis;
+  }
+
+ hr {
+    border: 1.5px solid black;
+}
+
+/* 목록버튼 */
+.btnarea{
+	padding-bottom: 20px;
+	/* width:100px; */
+  text-align: center;
+  /* float: left; */
+  display:flex;
+}
+
+.btnarea button{
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-right: 20px;
+  font-size: large;
+}
+
+.btnarea button:hover {
+	background-color: #f0f0f0;
+}
+
+.btnarea2{
+	padding-bottom: 20px;
+	width:100px;
+  text-align: center;
+  float: right;
+}
+
+.btnarea2 button{
+  width: 80px;
+  height: 40px;
+  background-color: #fff;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-right: 20px;
+  font-size: large;
+}
+
+.btnarea2 button:hover {
+	background-color: #f0f0f0;
+}
+
+ /*이미지 업로드*/
+
+  .input-img .upload-name {
+    display: flex;
+    align-items: center;
+    width: 300px;
+    height: 40px;
+    font-size: 1rem;
+    padding-left: 20px;
+    color: rgb(137, 137, 137);
+    border: 2px solid rgb(221, 221, 221);
+    border-radius: 10px;
+    margin-right: 10px;
+  }
+
+  .input-img {
+    display: flex;
+  }
+
+  .input-img label {
+    width: 105px;
+    height: 40px;
+    padding: 10px 20px;
+    background-color: #fff;
+    border: 2px solid black;
+    vertical-align: middle;
+    border-radius: 15px;
+    margin-left: 10px;
+    /* font-size: large; */
+    cursor: pointer;
+  }
+
+  .input-img input[type="file"] {
+    position: absolute;
+    width: 0;
+    height: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+  }
+

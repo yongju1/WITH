@@ -1,0 +1,308 @@
+@charset "UTF-8";
+
+@font-face {
+  font-family: 'ChosunCentennial';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'seolleimcool-SemiBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/seolleimcool-SemiBold.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'SejonghospitalBold';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2312-1@1.1/SejonghospitalBold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+h2 {
+  margin: 20px 0;
+  margin-left: 765px;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+:root {
+  --app-container: white;
+  --main-color: #1f1c2e;
+  --secondary-color: #4A4A4A;
+  --link-color: #1f1c2e;
+  --link-color-hover: #c3cff4;
+  --link-color-active: #fff;
+  --link-color-active-bg: #1f1c2e;
+  --projects-section: #fff;
+  --message-box-hover: #fafcff;
+  --message-box-border: #e9ebf0;
+  --more-list-bg: #fff;
+  --more-list-bg-hover: #f6fbff;
+  --more-list-shadow: rgba(255, 255, 255, 0.4);
+  --button-bg: #1f1c24;
+  --search-area-bg: #fff;
+  --star: #1ff1c2e;
+  --message-btn: #fff;
+}
+
+/* html {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+} */
+
+body {
+  font-family: 'SejonghospitalBold';
+  overflow: scroll;
+  background-color: var(--app-container);
+}
+
+
+
+/*section 내용*/
+
+section {
+  float: left;
+  margin-top: 50px;
+  margin-left: 130px;
+}
+
+.info {
+  background-color: #9c0410;
+  width: 100%;
+  height: 200px;
+  justify-content: space-between;
+  flex: 2;
+  border-radius: 32px 32px 0px 0px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  font-family: 'GmarketSansMedium';
+}
+
+.pl {
+  font-family: 'SejonghospitalBold';
+  border: 1px solid black;
+  box-sizing: border-box;
+  border-radius: 10px;
+  padding: 12px 13px;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.pl:focus {
+  border: 2px solid #000;
+  box-sizing: border-box;
+  border-radius: 10px;
+  border-radius: 10px;
+}
+
+/*페이지*/
+
+.page {
+  margin-top: 10px;
+  margin-left: 800px;
+}
+
+.page-item {
+  color: black;
+}
+
+/*카드*/
+.main {
+  justify-content: space-between;
+  align-items: center;
+  flex: 2;
+  /* background-color: rgb(222, 222, 222); */
+  width: 70%;
+  height: 100%;
+  /* padding: 20px; */
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.mainbox {
+  width: 60%;
+  height: 330px;
+  background-color: rgb(222, 222, 222);
+  color: black;
+  margin-left: 7%;
+}
+
+.content {
+  /* max-width: 1040px; */
+  flex-wrap: wrap;
+  align-content: stretch;
+  width: 100%;
+  margin: auto;
+  display: flex;
+}
+
+.infobox {
+  background-color: #000000;
+  width: 250px;
+  height: 400px;
+  margin-left: 7%;
+  margin-bottom: 20px;
+   border-radius: 10px;
+   word-break: keep-all;
+}
+
+.infobox img {
+	width: 100%;
+	height: 75%;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+}
+
+.infobox p, span {
+	margin-top: 15px;
+  color: #fff;
+  font-weight: bold;
+  /* font-size: 18px; */
+}
+
+.infobox a,i {
+  float: right;
+  /* margin-top: 8%; */
+  margin-right: 5%;
+  cursor: pointer;
+}
+
+.s{
+	float: right;
+  /* margin-top: 8%; */
+  margin-right: 5%;
+}
+
+.upload{
+	font-family: 'Gowun Dodum', sans-serif;
+	margin-top:5px;
+    margin-left: 10px;
+    width: 70px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    background-color: #3f3f3f;
+    color: #fff;
+    cursor: pointer;
+}
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px;
+}
+.pagination > li {
+  display: inline;
+}
+.pagination > li > a,
+.pagination > li > span {
+  position: relative;
+  float: left;
+  padding: 6px 12px;
+  margin-left: -1px;
+  line-height: 1.42857143;
+  color: #000000;
+  text-decoration: none;
+  background-color: #fff;
+  border: 1px solid #ddd;
+}
+.pagination > li:first-child > a,
+.pagination > li:first-child > span {
+  margin-left: 0;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+}
+.pagination > li:nth-last-child(1) > a,
+.pagination > li:nth-last-child(1) > span {
+  border-top-right-radius: 4px;
+  border-bottom-right-radius: 4px;
+}
+.pagination > li > a:hover,
+.pagination > li > span:hover,
+.pagination > li > a:focus,
+.pagination > li > span:focus {
+  color: #69727e;
+  background-color: #eee;
+  border-color: #ddd;
+}
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  z-index: 1;
+  color: #fff;
+  cursor: default;
+  background-color: #000000;
+  border-color: #000000;
+}
+.pagination > .disabled > span,
+.pagination > .disabled > span:hover,
+.pagination > .disabled > span:focus,
+.pagination > .disabled > a,
+.pagination > .disabled > a:hover,
+.pagination > .disabled > a:focus {
+  color: #999;
+  cursor: not-allowed;
+  background-color: #fff;
+  border-color: #ddd;
+}
+.pagination-lg > li > a,
+.pagination-lg > li > span {
+  padding: 10px 16px;
+  font-size: 18px;
+}
+.pagination-lg > li:first-child > a,
+.pagination-lg > li:first-child > span {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+.pagination-lg > li:nth-last-child(1) > a,
+.pagination-lg > li:nth-last-child(1) > span {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+.pagination-sm > li > a,
+.pagination-sm > li > span {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+.pagination-sm > li:first-child > a,
+.pagination-sm > li:first-child > span {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+.pagination-sm > li:nth-last-child(1) > a,
+.pagination-sm > li:nth-last-child(1) > span {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}

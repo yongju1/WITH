@@ -1,0 +1,73 @@
+@charset "UTF-8";
+
+@import url('https://fonts.googleapis.com/css2?family=Gowun+Dodum&display=swap');
+
+body{
+    font-family: 'Gowun Dodum', sans-serif;
+}
+
+.signup-container {
+    width: 500px;
+    height: 500px;
+    margin: 6% auto;
+    border: solid 2px rgb(124, 124, 124);
+    border-radius: 60px;
+}
+
+.title{
+    text-align: center;
+    margin-top: 30px;
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.s {
+    margin-left: 90px;
+    font-size: 17px;
+}
+
+
+.result-box p {
+	margin-top: 200px;
+	margin-left: 180px;
+}
+
+.login-pwd{
+	position: absolute;
+	bottom: 80px;
+	padding: 30px;
+	
+}
+
+.join-login {
+	display: block;
+}
+
+.join-login li {
+	display: inline-block;
+	height: 45px;
+	line-height: 45px;
+	text-align: center;
+	border-radius: 5px;
+}
+
+.join-login li:first-child {
+	width: 8rem;
+	background: #afafaf;
+	margin-left: 55px;
+}
+
+.join-login li:last-child {
+	margin-left: 40px;
+	/* float: right; */
+	width: 11rem;
+	background: #000;
+}
+
+.join-login li a {
+	text-decoration: none;
+	display: block;
+	height: 100%;
+	color: #fff;
+}
